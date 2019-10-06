@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css"
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+
+    <title>Dashboard</title>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/">Admin Login</a>
+</nav>
+
+<div><a class="navbar-brand" href="/signup">Admin SignUp</a></div>
+<div> <a class="navbar-brand" href="/login">Admin Login</a></div>
+
+<div>
+  <a id="twitter-button" class="btn btn-block btn-social btn-twitter">
+  <i class="fa fa-twitter"></i> Sign in with Twitter
+</a>
+</div>
+<script>
+  $('#twitter-button').on('click', function() {
+	// Initialize with your OAuth.io app public key
+	OAuth.initialize('HwAr2OtSxRgEEnO2-JnYjsuA3tc');
+  // Use popup for OAuth
+  OAuth.popup('twitter').then(twitter => {
+    console.log('twitter:', twitter);
+    // Prompts 'welcome' message with User's email on successful login
+    // #me() is a convenient method to retrieve user data without requiring you
+    // to know which OAuth provider url to call
+    twitter.me().then(data => {
+      console.log('data:', data);
+      alert('Twitter says your email is:' + data.email + ".\nView browser 'Console Log' for more details");
+	  });
+    // Retrieves user data from OAuth provider by using #get() and
+    // OAuth provider url    
+    twitter.get('/1.1/account/verify_credentials.json?include_email=true').then(data => {
+      console.log('self data:', data);
+	  })    
+	});
+})
+</script>
+    
+</body>
+</html>
